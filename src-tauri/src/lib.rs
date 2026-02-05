@@ -1,30 +1,49 @@
-use serde::{Deserialize, Serialize};
 use specta_typescript::Typescript;
-use tauri_specta::{collect_commands, Builder};
+use tauri::Manager;
 
 mod commands;
+mod error;
 mod models;
+mod services;
 
 use crate::commands::balls::greet;
-use crate::models::balls::Baller;
+use crate::services::database::DbState;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    // 1. We "collect" all functions with #[specta::specta]
-    let commands = collect_commands![commands::balls::greet];
+    //
+    // 1. Collect all commands
+    let commands = tauri_specta::collect_commands![greet];
 
-    // 2. We configure the TypeScript generator
-    let builder = Builder::<tauri::Wry>::new().commands(commands);
+    // 2. Configure the TypeScript bindings generator
+    let specta_builder = tauri_specta::Builder::<tauri::Wry>::new().commands(commands);
 
-    // 3. In "Debug" mode, we export the file to our React src folder
+    // 3. Outside of builds export bindings for React
     #[cfg(debug_assertions)]
-    builder
+    specta_builder
         .export(Typescript::default(), "../src/bindings.ts")
         .expect("Failed to export typescript bindings");
 
     tauri::Builder::default()
+        .setup(|app| {
+            let app_data_dir = app
+                .path()
+                .app_data_dir()
+                .expect("Failed to get app data dir");
+            std::fs::create_dir_all(&app_data_dir).ok();
+
+            let db_path = app_data_dir.join("lol_analytics.db");
+            let db_state = DbState::new(db_path)?;
+
+            db_state.init_schema()?;
+
+            app.manage(db_state);
+
+            Ok(())
+        })
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        // Use specta_builder.invoke_handler() instead of collecting commands twice
+        .invoke_handler(specta_builder.invoke_handler())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
