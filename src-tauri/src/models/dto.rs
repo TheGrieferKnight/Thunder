@@ -15,39 +15,27 @@ pub struct MatchDto {
 pub struct MetadataDto {
     pub data_version: Option<String>,
     pub match_id: String,
-    pub participants: Vec<String>, // A list of participant PUUIDs
+    pub participants: Vec<String>,
 }
 
-// Match info
 #[derive(Type, Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct InfoDto {
-    /// Indicates if the game ended in termination.
     pub end_of_game_result: Option<String>,
-    /// Unix timestamp for when the game is created on the game server.
     pub game_creation: Option<i64>,
-    /// Game duration (see Riot's note about milliseconds vs seconds).
     pub game_duration: Option<i64>,
-    /// Unix timestamp for when match ends on the game server.
     pub game_end_timestamp: Option<i64>,
     pub game_id: Option<i64>,
-    /// Game mode (see Riot's Game Constants).
     pub game_mode: Option<String>,
     pub game_name: Option<String>,
-    /// Unix timestamp for when match starts on the game server.
     pub game_start_timestamp: Option<i64>,
     pub game_type: Option<String>,
-    /// The first two parts can be used to determine the patch a game was played on.
     pub game_version: Option<String>,
-    /// Map ID (see Riot's Game Constants).
     pub map_id: Option<u32>,
     pub participants: Option<Vec<ParticipantDto>>,
-    /// Platform where the match was played.
     pub platform_id: Option<String>,
-    /// Queue ID (see Riot's Game Constants).
     pub queue_id: Option<u32>,
     pub teams: Option<Vec<TeamDto>>,
-    /// Tournament code used to generate the match.
     pub tournament_code: Option<String>,
 }
 
@@ -81,23 +69,16 @@ pub struct MiniSeriesDTO {
 #[derive(Type, Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct ParticipantDto {
-    /// Yellow crossed swords
     pub all_in_pings: Option<u32>,
-    /// Green flag
     pub assist_me_pings: Option<u32>,
     pub assists: Option<u16>,
     pub baron_kills: Option<u32>,
     pub bounty_level: Option<u32>,
     pub champ_experience: Option<u32>,
     pub champ_level: Option<u32>,
-    /// Prior to patch 11.4, on Feb 18th, 2021, this field returned invalid championIds.
-    /// We recommend determining the champion based on the championName field for matches played prior to patch 11.4.
     pub champion_id: Option<u32>,
     pub champion_name: Option<String>,
-    /// Blue generic ping (ALT+click)
     pub command_pings: Option<u32>,
-    /// This field is currently only utilized for Kayn's transformations.
-    /// (Legal values: 0 - None, 1 - Slayer, 2 - Assassin)
     pub champion_transform: Option<u32>,
     pub consumables_purchased: Option<u32>,
     pub challenges: Option<ChallengesDto>,
@@ -110,9 +91,7 @@ pub struct ParticipantDto {
     pub double_kills: Option<u32>,
     pub dragon_kills: Option<u32>,
     pub eligible_for_progression: Option<bool>,
-    /// Yellow question mark
     pub enemy_missing_pings: Option<u32>,
-    /// Red eyeball
     pub enemy_vision_pings: Option<u32>,
     pub first_blood_assist: Option<bool>,
     pub first_blood_kill: Option<bool>,
@@ -121,22 +100,20 @@ pub struct ParticipantDto {
     pub game_ended_in_early_surrender: Option<bool>,
     pub game_ended_in_surrender: Option<bool>,
     pub hold_pings: Option<u32>,
-    /// Yellow circle with horizontal line
     pub get_back_pings: Option<u32>,
     pub gold_earned: Option<u32>,
     pub gold_spent: Option<u32>,
-    /// See Riot's note on position fields
     pub individual_position: Option<String>,
     pub inhibitor_kills: Option<u8>,
     pub inhibitor_takedowns: Option<u32>,
     pub inhibitors_lost: Option<u32>,
-    pub item0: Option<u16>,
-    pub item1: Option<u16>,
-    pub item2: Option<u16>,
-    pub item3: Option<u16>,
-    pub item4: Option<u16>,
-    pub item5: Option<u16>,
-    pub item6: Option<u16>,
+    pub item0: Option<u32>,
+    pub item1: Option<u32>,
+    pub item2: Option<u32>,
+    pub item3: Option<u32>,
+    pub item4: Option<u32>,
+    pub item5: Option<u32>,
+    pub item6: Option<u32>,
     pub items_purchased: Option<u32>,
     pub killing_sprees: Option<u32>,
     pub kills: Option<u16>,
@@ -149,30 +126,27 @@ pub struct ParticipantDto {
     pub magic_damage_dealt_to_champions: Option<u32>,
     pub magic_damage_taken: Option<u32>,
     pub missions: Option<MissionsDto>,
-    /// neutralMinionsKilled = mNeutralMinionsKilled, incremented on kills of kPet and kJungleMonster
     pub neutral_minions_killed: Option<u16>,
-    /// Green ward
     pub need_vision_pings: Option<u32>,
     pub nexus_kills: Option<u32>,
     pub nexus_takedowns: Option<u32>,
     pub nexus_lost: Option<u32>,
     pub objectives_stolen: Option<u32>,
     pub objectives_stolen_assists: Option<u32>,
-    /// Blue arrow pointing at ground
     pub on_my_way_pings: Option<u32>,
     pub participant_id: Option<u32>,
-    pub player_score0: Option<u32>,
-    pub player_score1: Option<u32>,
-    pub player_score2: Option<u32>,
-    pub player_score3: Option<u32>,
-    pub player_score4: Option<u32>,
-    pub player_score5: Option<u32>,
-    pub player_score6: Option<u32>,
-    pub player_score7: Option<u32>,
-    pub player_score8: Option<u32>,
-    pub player_score9: Option<u32>,
-    pub player_score10: Option<u32>,
-    pub player_score11: Option<u32>,
+    pub player_score0: Option<f32>,
+    pub player_score1: Option<f32>,
+    pub player_score2: Option<f32>,
+    pub player_score3: Option<f32>,
+    pub player_score4: Option<f32>,
+    pub player_score5: Option<f32>,
+    pub player_score6: Option<f32>,
+    pub player_score7: Option<f32>,
+    pub player_score8: Option<f32>,
+    pub player_score9: Option<f32>,
+    pub player_score10: Option<f32>,
+    pub player_score11: Option<f32>,
     pub penta_kills: Option<u32>,
     pub perks: Option<PerksDto>,
     pub physical_damage_dealt: Option<u32>,
@@ -184,7 +158,6 @@ pub struct ParticipantDto {
     pub player_augment3: Option<u32>,
     pub player_augment4: Option<u32>,
     pub player_subteam_id: Option<u32>,
-    /// Green minion
     pub push_pings: Option<u32>,
     pub profile_icon: Option<u32>,
     pub puuid: Option<String>,
@@ -207,7 +180,6 @@ pub struct ParticipantDto {
     pub summoner_name: Option<String>,
     pub team_early_surrendered: Option<bool>,
     pub team_id: Option<u16>,
-    /// See Riot's note on position fields
     pub team_position: Option<String>,
     pub time_ccing_others: Option<f32>,
     pub time_played: Option<u32>,
@@ -217,11 +189,8 @@ pub struct ParticipantDto {
     pub total_damage_shielded_on_teammates: Option<u32>,
     pub total_damage_taken: Option<u32>,
     pub total_enemy_jungle_minions_killed: Option<u32>,
-    /// Includes healing enemies, jungle monsters, yourself, etc.
     pub total_heal: Option<u32>,
-    /// Post-modified healing on teammates
     pub total_heals_on_teammates: Option<u32>,
-    /// totalMillionsKilled = mMinionsKilled, incremented on kills of lane minions
     pub total_minions_killed: Option<u16>,
     pub total_time_cc_dealt: Option<f32>,
     pub total_time_spent_dead: Option<f32>,
@@ -333,7 +302,6 @@ pub struct ChallengesDto {
     pub max_kill_deficit: Option<u32>,
     pub mejais_full_stack_in_time: Option<f32>,
     pub more_enemy_jungle_than_opponent: Option<f32>,
-    /// This is an offshoot of the OneStone challenge.
     pub multi_kill_one_spell: Option<u32>,
     pub multikills: Option<u32>,
     pub multikills_after_aggressive_flash: Option<u32>,
@@ -383,7 +351,6 @@ pub struct ChallengesDto {
     pub team_rift_herald_kills: Option<u32>,
     pub took_large_damage_survived: Option<u32>,
     pub turret_plates_taken: Option<u32>,
-    /// Credit for damaging a tower destroyed within 30s of Rift Herald charge
     pub turrets_taken_with_rift_herald: Option<u32>,
     pub turret_takedowns: Option<u32>,
     pub twenty_minions_in3_seconds_count: Option<u32>,
@@ -398,21 +365,20 @@ pub struct ChallengesDto {
 #[derive(Type, Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct MissionsDto {
-    pub player_score0: Option<u32>,
-    pub player_score1: Option<u32>,
-    pub player_score2: Option<u32>,
-    pub player_score3: Option<u32>,
-    pub player_score4: Option<u32>,
-    pub player_score5: Option<u32>,
-    pub player_score6: Option<u32>,
-    pub player_score7: Option<u32>,
-    pub player_score8: Option<u32>,
-    pub player_score9: Option<u32>,
-    pub player_score10: Option<u32>,
-    pub player_score11: Option<u32>,
+    pub player_score0: Option<f32>,
+    pub player_score1: Option<f32>,
+    pub player_score2: Option<f32>,
+    pub player_score3: Option<f32>,
+    pub player_score4: Option<f32>,
+    pub player_score5: Option<f32>,
+    pub player_score6: Option<f32>,
+    pub player_score7: Option<f32>,
+    pub player_score8: Option<f32>,
+    pub player_score9: Option<f32>,
+    pub player_score10: Option<f32>,
+    pub player_score11: Option<f32>,
 }
 
-/* #region Runes */
 #[derive(Type, Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct PerksDto {
@@ -444,9 +410,7 @@ pub struct PerkStyleSelectionDto {
     pub var2: Option<u32>,
     pub var3: Option<u32>,
 }
-/* #endregion */
 
-/* #region Teams */
 #[derive(Type, Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TeamDto {
@@ -481,4 +445,3 @@ pub struct ObjectiveDto {
     pub first: Option<bool>,
     pub kills: Option<u32>,
 }
-/* #endregion */

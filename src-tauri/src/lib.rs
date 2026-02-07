@@ -1,13 +1,14 @@
 use specta_typescript::Typescript;
 use tauri::Manager;
 
+use crate::commands::analytics::greet;
+use crate::services::database::DbState;
+
 mod commands;
 mod error;
+mod infrastructure;
 mod models;
 mod services;
-
-use crate::commands::balls::greet;
-use crate::services::database::DbState;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
