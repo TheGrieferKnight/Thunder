@@ -7,3 +7,9 @@ test:
     cargo clippy -- -D warnings
     cargo test
     cargo check
+
+alias l := lint
+[working-directory: 'src-tauri']
+lint:
+    cargo fmt --all
+    cargo clippy
