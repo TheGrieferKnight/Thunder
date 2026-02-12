@@ -1,3 +1,4 @@
+cargo-features = ["profile-rustflags"]
 [build]
 # Per-profile rustflags require nightly Rust
 # This ensures CI/release builds are portable (generic CPU)
