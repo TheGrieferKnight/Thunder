@@ -1,11 +1,7 @@
 name: Setup Frontend
 description: Setup Bun with caching
 
-inputs:
-  node-version:
-    description: Node version for caching key
-    required: false
-    default: "22"
+runs:
 
 runs:
   using: composite
