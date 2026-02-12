@@ -19,7 +19,7 @@ jobs:
         uses: ./.github/actions/setup-rust
 
       - name: Check formatting
-        run: cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+        run: cargo +nightly fmt --manifest-path src-tauri/Cargo.toml -- --check
 
       - name: Clippy linting
         run: cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features -- -D warnings
@@ -77,10 +77,9 @@ jobs:
       - name: Setup Frontend
         uses: ./.github/actions/setup-frontend
 
-      - name: Build frontend
-        run: bun run build
-
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: --target ${{ matrix.target }}

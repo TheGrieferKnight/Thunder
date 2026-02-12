@@ -33,6 +33,9 @@ jobs:
       - name: Setup Rust
         uses: ./.github/actions/setup-rust
 
+      - name: Add Rust target
+        run: rustup target add ${{ matrix.target }}
+
       - name: Setup Frontend
         uses: ./.github/actions/setup-frontend
 
@@ -46,3 +49,4 @@ jobs:
           releaseBody: "See assets below."
           releaseDraft: true
           prerelease: false
+          args: --target ${{ matrix.target }}
