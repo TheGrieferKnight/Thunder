@@ -4,6 +4,13 @@ export const Route = createFileRoute("/")({
   component: HomeComponent,
 });
 
+/**
+ * Render the home page for the app.
+ *
+ * Returns the JSX for the home page, including a heading and a brief welcome message.
+ *
+ * @returns The React element representing the Home page UI.
+ */
 function HomeComponent() {
   return (
     <div className="px-4 py-6">

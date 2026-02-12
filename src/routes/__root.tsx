@@ -4,6 +4,11 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
+/**
+ * Root layout component that renders the top navigation bar with route links and a content outlet.
+ *
+ * @returns The root route layout as a JSX element containing a navigation bar with links for Home, Settings, and a sample item (params id = "1"), and an <Outlet /> for nested route content.
+ */
 function RootComponent() {
   return (
     <div className="min-h-screen bg-gray-50">
