@@ -4,6 +4,11 @@ export const Route = createFileRoute("/settings")({
   component: SettingsComponent,
 });
 
+/**
+ * Renders the Settings page UI with a header, description, and two sections: General and Appearance.
+ *
+ * @returns The JSX element representing the Settings page.
+ */
 function SettingsComponent() {
   return (
     <div className="px-4 py-6">

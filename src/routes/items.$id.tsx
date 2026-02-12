@@ -4,6 +4,11 @@ export const Route = createFileRoute("/items/$id")({
   component: ItemComponent,
 });
 
+/**
+ * Renders an item details view that displays the current route's `id` parameter.
+ *
+ * @returns A React element showing the item ID and a brief note about dynamic routing.
+ */
 function ItemComponent() {
   const { id } = Route.useParams();
 
