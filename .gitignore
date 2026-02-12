@@ -1,24 +1,36 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# Dependencies
+node_modules/
+src-tauri/target/
 
-node_modules
-dist
-dist-ssr
-*.local
+# Tauri
+src-tauri/gen/schemas/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Database (never commit data files!)
+*.db
+*.db-journal
+*.db-wal
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# Logs
+*.log
+
+# Test artifacts
+*.profraw
+cobertura.xml
+tarpaulin-report.html
+
+# Frontend build
+dist/

@@ -1,14 +1,27 @@
 use specta_typescript::Typescript;
 use tauri::Manager;
 
+use crate::commands::analytics::greet;
+use crate::services::database::DbState;
+
 mod commands;
 mod error;
+mod infrastructure;
 mod models;
 mod services;
 
-use crate::commands::balls::greet;
-use crate::services::database::DbState;
-
+/// Starts and runs the Tauri application, registering commands, plugins, and application state.
+///
+/// The function configures TypeScript bindings in debug builds, prepares the application data
+/// directory and SQLite database, initializes the schema, registers the database state with
+/// the Tauri app, attaches plugins and invoke handlers, then runs the Tauri event loop.
+///
+/// # Examples
+///
+/// ```rust,no_run
+/// // Starts the application (blocks the current thread).
+/// run();
+/// ```
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     //

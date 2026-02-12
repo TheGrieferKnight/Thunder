@@ -1,7 +1,9 @@
-use crate::error::{AppError, AppResult};
+use std::path::PathBuf;
+
 use duckdb::Connection;
 use parking_lot::Mutex;
-use std::path::PathBuf;
+
+use crate::error::{AppError, AppResult};
 
 // DB Connection gets wrapped in a Mutex so that it can only be accessed
 // by one Command at a time (avoid data races)
