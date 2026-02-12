@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Rust
         uses: ./.github/actions/setup-rust
-      
+
       - name: Check formatting
         run: cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
-      
+
       - name: Clippy linting
         run: cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --all-features -- -D warnings
 
@@ -26,10 +26,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Frontend
         uses: ./.github/actions/setup-frontend
-      
+
       - name: TypeScript check
         run: bun run tsc --noEmit
 
@@ -38,10 +38,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Rust
         uses: ./.github/actions/setup-rust
-      
+
       - name: Run tests
         run: cargo test --manifest-path src-tauri/Cargo.toml --all-features
 
@@ -61,22 +61,30 @@ jobs:
             target: aarch64-apple-darwin
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Rust
         uses: ./.github/actions/setup-rust
-      
+
       - name: Setup Frontend
         uses: ./.github/actions/setup-frontend
-      
+
       - name: Install Tauri v2 dependencies (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: |
-          sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev libsoup-3.0-dev libjavascriptcoregtk-4.1-dev
-      
+          sudo apt update
+          sudo apt install libwebkit2gtk-4.1-dev \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libxdo-dev \
+            libssl-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
+
       - name: Build frontend
         run: bun run build
-      
+
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
