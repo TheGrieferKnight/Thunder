@@ -1,0 +1,28 @@
+name: Setup Frontend
+description: Setup Bun with caching
+
+inputs:
+  node-version:
+    description: Node version for caching key
+    required: false
+    default: "22"
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      
+    - name: Cache Bun dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.bun/install/cache
+          node_modules
+        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb', '**/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-bun-
+    
+    - name: Install dependencies
+      run: bun install --frozen-lockfile
+      shell: bash

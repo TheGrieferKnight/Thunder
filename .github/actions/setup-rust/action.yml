@@ -1,0 +1,31 @@
+name: Setup Rust
+description: Setup Rust toolchain with caching
+
+inputs:
+  toolchain:
+    description: Rust toolchain to use
+    required: false
+    default: nightly
+  components:
+    description: Rust components to install
+    required: false
+    default: clippy,rustfmt
+  workspace:
+    description: Path to Cargo workspace
+    required: false
+    default: src-tauri
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        toolchain: ${{ inputs.toolchain }}
+        components: ${{ inputs.components }}
+    
+    - name: Cache Rust dependencies
+      uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: ${{ inputs.workspace }}
+        cache-on-failure: true
