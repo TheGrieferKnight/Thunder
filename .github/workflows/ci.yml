@@ -15,6 +15,9 @@ jobs:
       - name: Setup Tauri Dependencies
         uses: ./.github/actions/setup-tauri-deps
 
+      - name: Setup Tauri Dependencies
+        uses: ./.github/actions/setup-tauri-deps
+
       - name: Setup Rust
         uses: ./.github/actions/setup-rust
 
@@ -41,6 +44,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+
+      - name: Setup Tauri Dependencies
+        uses: ./.github/actions/setup-tauri-deps
 
       - name: Setup Tauri Dependencies
         uses: ./.github/actions/setup-tauri-deps
