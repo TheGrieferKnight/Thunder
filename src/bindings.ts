@@ -7,6 +7,14 @@
 export const commands = {
 async greet(name: string) : Promise<Baller> {
     return await TAURI_INVOKE("greet", { name });
+},
+async runUncheckedDbQuery(sql: string) : Promise<Result<JsonValue[], string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("run_unchecked_db_query", { sql }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -21,6 +29,7 @@ async greet(name: string) : Promise<Baller> {
 /** user-defined types **/
 
 export type Baller = { name: string; age: number }
+export type JsonValue = null | boolean | number | string | JsonValue[] | Partial<{ [key in string]: JsonValue }>
 
 /** tauri-specta globals **/
 

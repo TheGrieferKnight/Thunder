@@ -1,0 +1,22 @@
+name: Setup Tauri Dependencies
+description: Install Tauri v2 system dependencies
+
+runs:
+  using: composite
+  steps:
+    - name: Install Tauri v2 dependencies (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          libwebkit2gtk-4.1-dev \
+          build-essential \
+          curl \
+          wget \
+          file \
+          libxdo-dev \
+          libssl-dev \
+          libayatana-appindicator3-dev \
+          librsvg2-dev \
+          clang
+      shell: bash
